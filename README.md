@@ -60,7 +60,7 @@ One way to take into latency into account is to propagate the vehicle state  int
 ### MPC tuning 
 Tuning a controller consists in finding the values of the hyperparameters.
 For horizon and time step, I started with 10 steps of 100ms, that is a horizon time of 1 second. I then tuned my cost function, looking for the weights that would make my car stay on the road.
-Starting with all 6 weights to one, my car was wobbling a lot. To smooth the trajectory of increased the weights associated to yaw error, steer angle and steer angle difference to 10. It provided better results but the car still got out of the road at the first turn. I then significantly increased the weight associated to the steering angle difference, moving it to 100. The car was then able to drive round the track. There still was a lot of throttle/brake commands, so to reduce it I increased the weight associated to throttle command difference to 50.
+Starting with all 6 weights to one, my car was wobbling a lot. To smooth the trajectory I increased the weights associated to yaw error, steer angle and steer angle difference to 10. It provided better results but the car still got out of the road at the first turn. I then significantly increased the weight associated to the steering angle difference, moving it to 100. The car was then able to drive round the track. There still was a lot of throttle/brake commands, so to reduce it I increased the weight associated to throttle command difference to 50.
 This previous tuning was done for a speed of 40 mph. I tested how it behaved for 50 mph. Well, the car started to oscillate and soon crashed. After increasing the weight for the differential steering angle command to 200 and reducing the weight of the steering angle to 1 (so as to turn sharper), the car made it.
 I finally tried 60 mph with this new tuning but it did not pass.
 
@@ -76,6 +76,7 @@ The repository includes the following files:
 	 - main.cpp : communicates with the Simulator, receiving car poise (position, yaw, speed) and reference trajectory (waypoints), runs the MPC and sends back actuator commands (steering angle and throttle). 
 	 - MPC.cpp:  implements MPC. Returns MPC trajectory and actuator commands
  	 - json.hpp: JSON is used for communication with simulator
+	 - Eigen3-3/: repository containing Eigen library used for matrix calculus
 
  - CMakeLists.txt: file that is used by CMAKE to build the project 
 
