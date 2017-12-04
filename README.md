@@ -68,6 +68,7 @@ I finally tried 60 mph with this new tuning but it did not pass.
 We can see that the tuning is very sensitive to weights of the cost function. Driving very fast indeed requires a very fine tuning.
 It would certainly also require to play on horizon and time steps. I tried to modify these parameters and I could notice the car did not behave the same at all when increasing time step or horizon, requiring a new weight tuning!
 
+Finally remembering the results I got with PID controller and behavorial cloning, MPC is the technique which by far provides the best result.
 
 ## Repository content
 
