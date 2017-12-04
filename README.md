@@ -31,17 +31,25 @@ A latency of 100 ms is considered. It corresponds to the delay between the sendi
 Model Predictive Control consists in solving an optimization problem. The idea is to find the actuator commands (steering angle, throttle) over a given time interval in the future that will best enable to follow a reference trajectory (which is computed and provided by the path planning module).
 This optimization problem tries to minimize a cost function which depends on several parameters (cross track error (CTE), yaw error, speed error...), while coping with some constraints on actuator boundaries and actuator change rate. When the best combination of parameters is found, the first set of actuator commands are applied and the others are discarded. The optimization is repeated at each time step.
  
- ### MPC parameters
+### MPC implementation and parameters
  The hyper parameters of the MPC algorithms are:
  - Duration of the trajectory
  - Time step
+ - Reference trajectory polynomial order
  - Vehicle evolution model
  - Model constraints
  - Cost function
- 
+
 Choice of horizon and sampling time is a tradeoff between computer time and accuracy. The number of variables of the optimization problem is proportional to the number of steps. So it is important to limit this value.
-The vehicle model I chose it the one we studied in class: the bicycle kinematic model. It contains 6 parameters (x, y, velocity, yaw, CTE, yaw error).
-Some constraints are put on the actuator values: +/- 25° on the steering angle and +/-1 on throttle value (that is full throttle and full brake)
+
+The first step of the MPC consists in fitting a polynomial on the waypoints received from the simulator. My implementation enables to choose between first, second and third order polynomial. My final choice was a second order polynomial as it provided the same performance as the third order polynomial.
+
+The vehicle model I chose is the one we studied in class: the bicycle kinematic model. It contains 6 parameters (x, y, velocity, yaw, CTE, yaw error). It is a simple and proficient model.
+
+Note that is is possible to express vehicle's state either in map frame or in car frame. The second option was chosen as it is makes computations easier. As the waypoinst are expressed in map frame, they were first converted to car frame, through a translation to car positin and rotation of yaw angle.
+
+Some constraints are put on the actuator values: +/- 25° on the steering angle and +/-1 on throttle value (that is full throttle and full brake).
+
 As for the cost function, it the weighted square sum of the following terms:
 * CTE
 * Yaw error
