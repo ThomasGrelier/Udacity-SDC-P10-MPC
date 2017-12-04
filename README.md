@@ -6,9 +6,9 @@ This repository contains the work I did within **Project #10 of Udacity's Self-D
 
 For this we use the car driving simulator that Udacity has developed and that we already used for Project #3 (Behavorial Cloning) and Project #9 (PID controller). For that project, the objective is still the same (drive the car around the car) but using Model Predictive Control approach. 
 
-*Snapshot of Udacity's driving simulator*
+*Snapshot of Udacity's driving simulator (in yellow reference trajectory, in green MPC trajectory)*
 
-![](./simulator.png)
+![](./Simulator.png)
 
 
 ## Project writeup
